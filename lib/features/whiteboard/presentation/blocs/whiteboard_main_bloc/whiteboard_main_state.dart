@@ -6,8 +6,19 @@ class WhiteboardMainState {
   final List<DrawingPointEntity> drawingPoint;
   final DrawingPointEntity? currentDrawingPoint;
   final bool isZoomMode;
+  final Color selectedColor;
+  final double selectedStroke;
+  final FeatureCategory? selectedCategory;
 
-  const WhiteboardMainState({this.state = StateEnum.initial, this.drawingPoint = const [], this.currentDrawingPoint, this.isZoomMode = false});
+  const WhiteboardMainState({
+    this.state = StateEnum.initial,
+    this.drawingPoint = const [],
+    this.currentDrawingPoint,
+    this.isZoomMode = false,
+    this.selectedColor = Colors.black12,
+    this.selectedStroke = 1.0,
+    this.selectedCategory,
+  });
 
   WhiteboardMainState copyWith({
     StateEnum? state,
@@ -15,12 +26,18 @@ class WhiteboardMainState {
     DrawingPointEntity? currentDrawingPoint,
     bool makeCurrentDrawingNull = false,
     bool? isZoomMode,
+    Color? selectedColor,
+    double? selectedStroke,
+    FeatureCategory? selectedCategory,
   }) {
     return WhiteboardMainState(
       state: state ?? this.state,
       drawingPoint: drawingPoint ?? this.drawingPoint,
       currentDrawingPoint: makeCurrentDrawingNull ? null : currentDrawingPoint ?? this.currentDrawingPoint,
       isZoomMode: isZoomMode ?? this.isZoomMode,
+      selectedColor: selectedColor ?? this.selectedColor,
+      selectedStroke: selectedStroke ?? this.selectedStroke,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
     );
   }
 

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inboard_personal_project/core/common/enums/state_enum.dart';
 import 'package:inboard_personal_project/core/services/di_services/service_locator.dart' show getIt;
 import 'package:inboard_personal_project/features/whiteboard/presentation/blocs/whiteboard_main_bloc/whiteboard_main_bloc.dart';
 import 'package:inboard_personal_project/features/whiteboard/presentation/items/initialized_center_categories.dart';
@@ -17,6 +20,7 @@ class WhiteboardMainScreen extends StatefulWidget {
 
 class _WhiteboardMainScreenState extends State<WhiteboardMainScreen> {
   late TransformationController _controller;
+
 
   @override
   void initState() {
@@ -98,12 +102,13 @@ class _WhiteboardMainScreenState extends State<WhiteboardMainScreen> {
                     bottom: 50,
                     child: HorizontalIconPopup(feature: centerFeature),
                   ),
-                  Positioned(right: 0, bottom: 50, child: HorizontalIconPopup(feature: leftFeature)),
-                  Positioned(left: 0, bottom: 50, child: HorizontalIconPopup(feature: rightFeature)),
+                  // Positioned(right: 0, bottom: 50, child: HorizontalIconPopup(feature: leftFeature)),
+                  // Positioned(left: 0, bottom: 50, child: HorizontalIconPopup(feature: rightFeature)),
+                  if(state.state==StateEnum.loading)
                   Positioned(
                     right: MediaQuery.of(context).size.width * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.3,
-                    child: loader("Recognizing ........."),
+                    child: loader("Recognizing ........"),
                   ),
                 ],
               );

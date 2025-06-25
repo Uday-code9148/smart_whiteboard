@@ -11,7 +11,18 @@ class WhiteboardPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (var drawing in drawingPoints) {
-      canvas.drawPoints(PointMode.polygon, drawing.points, drawing.paint!);
+      if (drawing.recDrawing != null && drawing.position != null) {
+        // Draw recognized text
+        final textSpan = TextSpan(
+          text: drawing.recDrawing?.recDrawing as String,
+          style: TextStyle(color: Colors.blue, fontSize: 16),
+        );
+        final tp = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
+        tp.layout();
+        tp.paint(canvas, drawing.position!.topLeft);
+      } else {
+        canvas.drawPoints(PointMode.polygon, drawing.points, drawing.paint!);
+      }
     }
   }
 

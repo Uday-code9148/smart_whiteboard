@@ -45,6 +45,7 @@ class SelectStrokeEvent extends WhiteboardMainEvent {
 
 class ClearCanvasEvent extends WhiteboardMainEvent {}
 
+class EnsureRecognitionModelsDownloadEvent extends WhiteboardMainEvent {}
 class TextRecognitionEvent extends WhiteboardMainEvent {}
 
 class MathRecognitionEvent extends WhiteboardMainEvent {}

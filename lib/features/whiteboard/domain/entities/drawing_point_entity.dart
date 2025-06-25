@@ -8,11 +8,24 @@ class DrawingPointEntity<T> {
   final RecognizedWrapper<T>? recDrawing;
 
   final FeatureCategory? selectedCategory;
+  final Rect? position;
 
-  DrawingPointEntity({this.points = const [], this.paint, this.recDrawing, this.selectedCategory});
+  DrawingPointEntity({this.points = const [], this.paint, this.recDrawing, this.selectedCategory, this.position});
 
-  DrawingPointEntity copyWith({List<Offset>? points, Paint? paint}) {
-    return DrawingPointEntity(points: points ?? this.points, paint: paint ?? this.paint);
+  DrawingPointEntity copyWith({
+    List<Offset>? points,
+    Paint? paint,
+    RecognizedWrapper<T>? recDrawing,
+    FeatureCategory? selectedCategory,
+    Rect? position,
+  }) {
+    return DrawingPointEntity(
+      points: points ?? this.points,
+      paint: paint ?? this.paint,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
+      recDrawing: recDrawing ?? this.recDrawing,
+      position: position ?? this.position,
+    );
   }
 }
 

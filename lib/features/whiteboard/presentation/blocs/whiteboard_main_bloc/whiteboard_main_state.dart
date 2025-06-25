@@ -6,6 +6,7 @@ class WhiteboardMainState {
   final List<DrawingPointEntity> drawingPoint;
   final DrawingPointEntity? currentDrawingPoint;
   final bool isZoomMode;
+  final bool isModelsDownload;
   final Color selectedColor;
   final double selectedStroke;
   final FeatureCategory? selectedCategory;
@@ -15,9 +16,10 @@ class WhiteboardMainState {
     this.drawingPoint = const [],
     this.currentDrawingPoint,
     this.isZoomMode = false,
-    this.selectedColor = Colors.black12,
-    this.selectedStroke = 1.0,
+    this.selectedColor = Colors.black,
+    this.selectedStroke = 4.0,
     this.selectedCategory,
+    this.isModelsDownload = false,
   });
 
   WhiteboardMainState copyWith({
@@ -26,6 +28,7 @@ class WhiteboardMainState {
     DrawingPointEntity? currentDrawingPoint,
     bool makeCurrentDrawingNull = false,
     bool? isZoomMode,
+    bool? isModelsDownload,
     Color? selectedColor,
     double? selectedStroke,
     FeatureCategory? selectedCategory,
@@ -38,6 +41,7 @@ class WhiteboardMainState {
       selectedColor: selectedColor ?? this.selectedColor,
       selectedStroke: selectedStroke ?? this.selectedStroke,
       selectedCategory: selectedCategory ?? this.selectedCategory,
+      isModelsDownload: isModelsDownload ?? this.isModelsDownload,
     );
   }
 

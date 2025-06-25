@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inboard_personal_project/core/services/di_services/service_locator.dart' show getIt;
 import 'package:inboard_personal_project/core/wrappers/icon_with_list_wrapper.dart';
+import 'package:inboard_personal_project/features/whiteboard/presentation/blocs/whiteboard_main_bloc/whiteboard_main_bloc.dart';
 
 class HorizontalIconPopup extends StatelessWidget {
   final FeatureCategory feature;
@@ -60,6 +62,7 @@ class HorizontalIconPopup extends StatelessWidget {
                             : () {
                                 entry?.remove();
                                 item.onTap?.call();
+                                getIt<WhiteboardMainBloc>().add(SelectCategoryEvent(selectedCategory: item));
                               },
                       ),
                     );
@@ -101,7 +104,10 @@ class HorizontalIconPopup extends StatelessWidget {
                 ? () {
                     _showCustomPopup(context, itemKey, item.items);
                   }
-                : item.onTap,
+                : () {
+                    item.onTap?.call();
+                    getIt<WhiteboardMainBloc>().add(SelectCategoryEvent(selectedCategory: item));
+                  },
           );
         },
       ),

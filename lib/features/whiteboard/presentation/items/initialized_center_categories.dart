@@ -35,7 +35,7 @@ final centerFeature = FeatureCategory(
           name: 'text rec',
           icon: Icon(Icons.text_decrease_outlined, color: Colors.greenAccent),
           onTap: () {
-            getIt<WhiteboardMainBloc>().add(ToggleZoomMode());
+            // getIt<WhiteboardMainBloc>().add(ToggleZoomMode());
           },
         ),
         FeatureCategory(name: 'math rec', icon: Icon(Icons.calculate_rounded), onTap: () {}),

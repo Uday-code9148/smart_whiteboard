@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inboard_personal_project/core/common/enums/state_enum.dart';
 import 'package:inboard_personal_project/core/services/di_services/service_locator.dart' show getIt;
+import 'package:inboard_personal_project/features/whiteboard/domain/enums/category_enum.dart';
 import 'package:inboard_personal_project/features/whiteboard/presentation/blocs/whiteboard_main_bloc/whiteboard_main_bloc.dart';
 import 'package:inboard_personal_project/features/whiteboard/presentation/items/initialized_center_categories.dart';
 import 'package:inboard_personal_project/features/whiteboard/presentation/items/initialized_left_categories.dart';
@@ -20,7 +21,6 @@ class WhiteboardMainScreen extends StatefulWidget {
 
 class _WhiteboardMainScreenState extends State<WhiteboardMainScreen> {
   late TransformationController _controller;
-
 
   @override
   void initState() {
@@ -43,12 +43,12 @@ class _WhiteboardMainScreenState extends State<WhiteboardMainScreen> {
           appBar: AppBar(
             title: const Text('Whiteboard'),
             actions: [
-              IconButton(icon: const Icon(Icons.delete), onPressed: () => context.read<WhiteboardMainBloc>().add(ClearCanvasEvent())),
-              IconButton(
-                icon: const Icon(Icons.zoom_out_map),
-                onPressed: () => context.read<WhiteboardMainBloc>().controller.value = Matrix4.identity(),
-              ),
-              IconButton(icon: Icon(state.isZoomMode ? Icons.pan_tool : Icons.edit), onPressed: () {}),
+              // IconButton(icon: const Icon(Icons.delete), onPressed: () => context.read<WhiteboardMainBloc>().add(ClearCanvasEvent())),
+              // IconButton(
+              //   icon: const Icon(Icons.zoom_out_map),
+              //   onPressed: () => context.read<WhiteboardMainBloc>().controller.value = Matrix4.identity(),
+              // ),
+              // IconButton(icon: Icon(state.isZoomMode ? Icons.pan_tool : Icons.edit), onPressed: () {}),
             ],
           ),
           body: LayoutBuilder(
@@ -56,21 +56,21 @@ class _WhiteboardMainScreenState extends State<WhiteboardMainScreen> {
               return Stack(
                 children: [
                   Listener(
-                    onPointerDown: state.isZoomMode
+                    onPointerDown: state.selectedCategoryEnum == CategoryEnum.zoom
                         ? null
                         : (event) {
                             final local = event.localPosition;
                             final pos = _transformPointer(local);
                             context.read<WhiteboardMainBloc>().add(PanStartEvent(points: pos));
                           },
-                    onPointerMove: state.isZoomMode
+                    onPointerMove: state.selectedCategoryEnum == CategoryEnum.zoom
                         ? null
                         : (event) {
                             final local = event.localPosition;
                             final pos = _transformPointer(local);
                             context.read<WhiteboardMainBloc>().add(PanUpdateEvent(points: pos));
                           },
-                    onPointerUp: state.isZoomMode
+                    onPointerUp: state.selectedCategoryEnum == CategoryEnum.zoom
                         ? null
                         : (_) {
                             context.read<WhiteboardMainBloc>().add(PanEndEvent());
@@ -78,8 +78,8 @@ class _WhiteboardMainScreenState extends State<WhiteboardMainScreen> {
                     child: InteractiveViewer(
                       transformationController: _controller,
                       constrained: false,
-                      panEnabled: state.isZoomMode,
-                      scaleEnabled: state.isZoomMode,
+                      panEnabled: state.selectedCategoryEnum == CategoryEnum.zoom,
+                      scaleEnabled: state.selectedCategoryEnum == CategoryEnum.zoom,
                       minScale: 0.5,
                       maxScale: 5.0,
                       child: Container(
@@ -98,18 +98,18 @@ class _WhiteboardMainScreenState extends State<WhiteboardMainScreen> {
                     ),
                   ),
                   Positioned(
-                    right: MediaQuery.of(context).size.width * 0.37,
+                    right: MediaQuery.of(context).size.width * 0.1,
                     bottom: 50,
                     child: HorizontalIconPopup(feature: centerFeature),
                   ),
                   // Positioned(right: 0, bottom: 50, child: HorizontalIconPopup(feature: leftFeature)),
                   // Positioned(left: 0, bottom: 50, child: HorizontalIconPopup(feature: rightFeature)),
-                  if(state.state==StateEnum.loading)
-                  Positioned(
-                    right: MediaQuery.of(context).size.width * 0.02,
-                    bottom: MediaQuery.of(context).size.height * 0.3,
-                    child: loader("Recognizing ........"),
-                  ),
+                  if (state.state == StateEnum.loading)
+                    Positioned(
+                      right: MediaQuery.of(context).size.width * 0.02,
+                      bottom: MediaQuery.of(context).size.height * 0.3,
+                      child: loader("Recognizing ........"),
+                    ),
                 ],
               );
             },

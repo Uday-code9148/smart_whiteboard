@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inboard_personal_project/core/services/di_services/service_locator.dart';
 import 'package:inboard_personal_project/core/wrappers/icon_with_list_wrapper.dart';
+import 'package:inboard_personal_project/features/whiteboard/domain/enums/category_enum.dart';
 import 'package:inboard_personal_project/features/whiteboard/domain/enums/shapes_enum.dart';
 import 'package:inboard_personal_project/features/whiteboard/presentation/blocs/whiteboard_main_bloc/whiteboard_main_bloc.dart';
 import 'package:inboard_personal_project/features/whiteboard/presentation/widgets/show_color_picker_dialogue.dart'
@@ -15,7 +16,7 @@ final centerFeature = FeatureCategory(
       name: 'zoom',
       icon: Icon(Icons.zoom_in_map, color: Colors.blue),
       onTap: () {
-        getIt<WhiteboardMainBloc>().add(ToggleZoomMode());
+        getIt<WhiteboardMainBloc>().add(ToggleCategoryEnum(categoryEnum: CategoryEnum.zoom));
       },
     ),
     FeatureCategory(
@@ -69,14 +70,20 @@ final centerFeature = FeatureCategory(
         ),
         FeatureCategory(name: 'free hand', icon: Icon(Icons.free_breakfast), onTap: () {}),
       ],
-      onTap: () {},
+      onTap: () {
+        getIt<WhiteboardMainBloc>().add(ToggleCategoryEnum(categoryEnum: CategoryEnum.eraser));
+      },
     ),
-    FeatureCategory(name: 'custom', icon: Icon(Icons.arrow_circle_left), onTap: () {}),
+    FeatureCategory(name: 'custom', icon: Icon(Icons.dashboard_customize_outlined), onTap: () {}, items: getShapesDetails()),
   ],
 );
 
 List<FeatureCategory> getShapesDetails() {
   return ShapesEnum.values.map((e) {
-    return FeatureCategory(name: e.name, icon: e.icon, onTap: () {});
+    return FeatureCategory(
+      name: e.name,
+      icon: e.icon,
+      onTap: () => getIt<WhiteboardMainBloc>().add(ShapeSelectionEvent(shape: e)),
+    );
   }).toList();
 }

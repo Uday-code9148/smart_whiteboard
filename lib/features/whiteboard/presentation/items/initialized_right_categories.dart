@@ -15,7 +15,7 @@ final rightFeature = FeatureCategory(
       name: 'zoom',
       icon: Icon(Icons.zoom_in_map, color: Colors.blue),
       onTap: () {
-        getIt<WhiteboardMainBloc>().add(ToggleZoomMode());
+        getIt<WhiteboardMainBloc>().add(ToggleCategoryEnum());
       },
     ),
     FeatureCategory(
@@ -35,7 +35,7 @@ final rightFeature = FeatureCategory(
           name: 'text rec',
           icon: Icon(Icons.text_decrease_outlined, color: Colors.greenAccent),
           onTap: () {
-            getIt<WhiteboardMainBloc>().add(ToggleZoomMode());
+            getIt<WhiteboardMainBloc>().add(ToggleCategoryEnum());
           },
         ),
         FeatureCategory(name: 'math rec', icon: Icon(Icons.calculate_rounded), onTap: () {}),

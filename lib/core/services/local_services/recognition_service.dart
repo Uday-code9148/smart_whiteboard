@@ -7,12 +7,13 @@ class RecognitionService {
   Future<bool> ensureModelDownloaded(String languageTag) async {
     final isDownloaded = await _modelManager.isModelDownloaded(languageTag);
     if (!isDownloaded) {
-      print("Downloading model for $languageTag...");
-       await _modelManager.downloadModel(languageTag);
-      print("Downloaded model for $languageTag...");
+      try {
+        await _modelManager.downloadModel(languageTag);
+      } catch (ex) {
+        rethrow;
+      }
       return true;
     } else {
-      print("Model already downloaded for $languageTag.");
       return false;
     }
   }
@@ -20,7 +21,6 @@ class RecognitionService {
   /// Delete model if needed
   Future<void> deleteModel(String languageTag) async {
     await _modelManager.deleteModel(languageTag);
-    print("Model deleted: $languageTag");
   }
 
   /// Recognize plain text handwriting
@@ -33,7 +33,6 @@ class RecognitionService {
       final result = await recognizer.recognize(ink);
       return result.first;
     } catch (e) {
-      print('Error recognizing normal text: $e');
       return null;
     }
   }

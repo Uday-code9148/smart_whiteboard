@@ -29,7 +29,8 @@ class HorizontalIconPopup extends StatelessWidget {
 
           // ✅ Your actual popup
           Positioned(
-            left: position.dx,
+            left: 60,
+            // left: position.dx,
             top: position.dy - 80,
             child: Material(
               color: Colors.transparent,
@@ -82,7 +83,7 @@ class HorizontalIconPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      width: 300,
+      width:330,
       decoration: BoxDecoration(
         color: Colors.white10,
         borderRadius: BorderRadius.circular(12),

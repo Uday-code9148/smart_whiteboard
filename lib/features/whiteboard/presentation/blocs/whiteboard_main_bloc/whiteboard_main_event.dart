@@ -29,7 +29,11 @@ class PanUpdateEvent extends WhiteboardMainEvent {
 
 class PanEndEvent extends WhiteboardMainEvent {}
 
-class ToggleZoomMode extends WhiteboardMainEvent {}
+class ToggleCategoryEnum extends WhiteboardMainEvent {
+  final CategoryEnum? categoryEnum;
+
+  ToggleCategoryEnum({this.categoryEnum});
+}
 
 class SelectColorEvent extends WhiteboardMainEvent {
   final Color selectedColor;
@@ -46,6 +50,13 @@ class SelectStrokeEvent extends WhiteboardMainEvent {
 class ClearCanvasEvent extends WhiteboardMainEvent {}
 
 class EnsureRecognitionModelsDownloadEvent extends WhiteboardMainEvent {}
+
 class TextRecognitionEvent extends WhiteboardMainEvent {}
 
 class MathRecognitionEvent extends WhiteboardMainEvent {}
+
+class ShapeSelectionEvent extends WhiteboardMainEvent {
+  final ShapesEnum? shape;
+
+  ShapeSelectionEvent({this.shape});
+}
